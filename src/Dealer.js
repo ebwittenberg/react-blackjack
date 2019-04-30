@@ -6,8 +6,7 @@ class Dealer extends React.Component {
       this.state={
         deck: [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11],
         hand: [],
-        total: 0,
-        stay: false
+        total: 0
       }
     }
   
@@ -18,22 +17,20 @@ class Dealer extends React.Component {
     }
   
     render() {
-  
-      console.log(this.state.stay);
-      console.log(this.state.hand);
-      console.log(this.state.total);
+        console.log(this.props.playerStatus);
+
   
       return (
         <div>
-          <button onClick={this._hitMe}>Hit me</button>
-          <button onClick={this._stay}>Stay</button>
+          {/* <button onClick={this._hitMe}>Hit me</button>
+          <button onClick={this._stay}>Stay</button> */}
           {/* {this.state.hand[this.state.hand.length - 1]} */}
           <h3>Dealer Hand: </h3>
   
           <div>
             {
               this.state.hand.map((card, i)=> {
-                return (i === 0 && this.state.stay === false)
+                return (i === 0 && this.props.playerStatus === false)
                 ? <p 
                 style={
                   {marginRight: '20px', 
@@ -48,7 +45,7 @@ class Dealer extends React.Component {
             }
   
             {
-              this.state.total > 21 ? <h1>Busted!</h1> : <h1>Total: {this.state.total}</h1>
+              this.state.total > 21 ? <h1>Busted!</h1> : null
             }
   
           </div>

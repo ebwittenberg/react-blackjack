@@ -5,8 +5,6 @@ class Player extends React.Component {
       this.state={
         deck: [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11],
         hand: [],
-        total: 0,
-        stay: false
       }
     }
   
@@ -17,10 +15,6 @@ class Player extends React.Component {
     }
   
     render() {
-  
-      console.log(this.state.stay);
-      console.log(this.state.hand);
-      console.log(this.state.total);
   
       return (
         <div>
@@ -44,7 +38,7 @@ class Player extends React.Component {
             }
   
             {
-              this.state.total > 21 ? <h1>Busted!</h1> : <h1>Total: {this.state.total}</h1>
+              this.props.total > 21 ? <h1>Busted!</h1> : <h1>Total: {this.props.total}</h1>
             }
   
           </div>
@@ -57,11 +51,15 @@ class Player extends React.Component {
     _hitMe = () => {
       // pull a single card out of the deck, set it in state
       const randomNum = Math.floor(Math.random() * 51);
+
+      // passing to total prop the actual card value
+      this.props.calcTotal(this.state.deck[randomNum])
+
+
       const beginningOfDeck = this.state.deck.slice(0, randomNum);
       const endOfDeck = this.state.deck.slice(randomNum + 1);
   
       this.setState({
-        total: this.state.total + this.state.deck[randomNum],
         deck: beginningOfDeck.concat(endOfDeck),
         hand: [...this.state.hand, this.state.deck[randomNum]]
       })
@@ -70,20 +68,24 @@ class Player extends React.Component {
   
     _dealTwo = () => {
       const randomNum = Math.floor(Math.random() * 51);
+
+      this.props.calcTotal(this.state.deck[randomNum])
+
       const beginningOfDeck = this.state.deck.slice(0, randomNum);
       const endOfDeck = this.state.deck.slice(randomNum + 1);
   
       this.setState({
-        total: this.state.total + this.state.deck[randomNum],
         deck: beginningOfDeck.concat(endOfDeck),
         hand: [...this.state.hand, this.state.deck[randomNum]]
       }, () => {
         const randomNum = Math.floor(Math.random() * 51);
+
+        this.props.calcTotal(this.state.deck[randomNum])
+
         const beginningOfDeck = this.state.deck.slice(0, randomNum);
         const endOfDeck = this.state.deck.slice(randomNum + 1);
     
         this.setState({
-          total: this.state.total + this.state.deck[randomNum],
           deck: beginningOfDeck.concat(endOfDeck),
           hand: [...this.state.hand, this.state.deck[randomNum]]
         })
@@ -92,12 +94,9 @@ class Player extends React.Component {
     }
   
     _stay = () => {
-      const handTotal = this.state.hand.reduce((accumulator, currentValue) => accumulator + currentValue)
-      this.setState({
-        stay: true,
-        total: handTotal
-      })
+        this.props.stayStatus();
     }
-  }
+
+}
   
   export default Player;
