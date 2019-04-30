@@ -3,7 +3,6 @@ class Player extends React.Component {
     constructor(props) {
       super(props);
       this.state={
-        deck: [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11],
         hand: [],
       }
     }
@@ -53,15 +52,17 @@ class Player extends React.Component {
       const randomNum = Math.floor(Math.random() * 51);
 
       // passing to total prop the actual card value
-      this.props.calcTotal(this.state.deck[randomNum])
+    //   this.props.calcTotal(this.state.deck[randomNum])
+
+      this.props.dealCard(randomNum)
 
 
-      const beginningOfDeck = this.state.deck.slice(0, randomNum);
-      const endOfDeck = this.state.deck.slice(randomNum + 1);
+    //   const beginningOfDeck = this.state.deck.slice(0, randomNum);
+    //   const endOfDeck = this.state.deck.slice(randomNum + 1);
+        
   
       this.setState({
-        deck: beginningOfDeck.concat(endOfDeck),
-        hand: [...this.state.hand, this.state.deck[randomNum]]
+        hand: [...this.state.hand, this.props.deck[randomNum]]
       })
   
     }
@@ -69,25 +70,27 @@ class Player extends React.Component {
     _dealTwo = () => {
       const randomNum = Math.floor(Math.random() * 51);
 
-      this.props.calcTotal(this.state.deck[randomNum])
+      this.props.dealCard(randomNum);
 
-      const beginningOfDeck = this.state.deck.slice(0, randomNum);
-      const endOfDeck = this.state.deck.slice(randomNum + 1);
+    //   this.props.calcTotal(this.state.deck[randomNum])
+
+    //   const beginningOfDeck = this.state.deck.slice(0, randomNum);
+    //   const endOfDeck = this.state.deck.slice(randomNum + 1);
   
       this.setState({
-        deck: beginningOfDeck.concat(endOfDeck),
-        hand: [...this.state.hand, this.state.deck[randomNum]]
+        hand: [...this.state.hand, this.props.deck[randomNum]]
       }, () => {
         const randomNum = Math.floor(Math.random() * 51);
 
-        this.props.calcTotal(this.state.deck[randomNum])
+        this.props.dealCard(randomNum);
 
-        const beginningOfDeck = this.state.deck.slice(0, randomNum);
-        const endOfDeck = this.state.deck.slice(randomNum + 1);
+        // this.props.calcTotal(this.state.deck[randomNum])
+
+        // const beginningOfDeck = this.state.deck.slice(0, randomNum);
+        // const endOfDeck = this.state.deck.slice(randomNum + 1);
     
         this.setState({
-          deck: beginningOfDeck.concat(endOfDeck),
-          hand: [...this.state.hand, this.state.deck[randomNum]]
+          hand: [...this.state.hand, this.props.deck[randomNum]]
         })
       })
   
