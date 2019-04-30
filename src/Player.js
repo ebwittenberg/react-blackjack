@@ -51,14 +51,7 @@ class Player extends React.Component {
       // pull a single card out of the deck, set it in state
       const randomNum = Math.floor(Math.random() * 51);
 
-      // passing to total prop the actual card value
-    //   this.props.calcTotal(this.state.deck[randomNum])
-
       this.props.dealCard(randomNum)
-
-
-    //   const beginningOfDeck = this.state.deck.slice(0, randomNum);
-    //   const endOfDeck = this.state.deck.slice(randomNum + 1);
         
   
       this.setState({
@@ -71,11 +64,6 @@ class Player extends React.Component {
       const randomNum = Math.floor(Math.random() * 51);
 
       this.props.dealCard(randomNum);
-
-    //   this.props.calcTotal(this.state.deck[randomNum])
-
-    //   const beginningOfDeck = this.state.deck.slice(0, randomNum);
-    //   const endOfDeck = this.state.deck.slice(randomNum + 1);
   
       this.setState({
         hand: [...this.state.hand, this.props.deck[randomNum]]
@@ -84,14 +72,9 @@ class Player extends React.Component {
 
         this.props.dealCard(randomNum);
 
-        // this.props.calcTotal(this.state.deck[randomNum])
-
-        // const beginningOfDeck = this.state.deck.slice(0, randomNum);
-        // const endOfDeck = this.state.deck.slice(randomNum + 1);
-    
         this.setState({
           hand: [...this.state.hand, this.props.deck[randomNum]]
-        })
+        }, this.props.finishDealing)
       })
   
     }
